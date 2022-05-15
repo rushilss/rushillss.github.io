@@ -73,7 +73,7 @@ Here I wanted to merge the two tables and display them, but there are some logis
 
 Then I took the Net Spend for each club during each season from the transfer table and added it to the standings table which will allow me to provide a comprehensive performance review for each club during each season. The code for all of this and the resulting table is below.
 
-markdown```
+```markdown
 
 	Season	Pos	Club	GF	GA	GD	Pts	Net_Spend
 40	2012-13	1	Manchester United	86	43	43	89	-66.80
