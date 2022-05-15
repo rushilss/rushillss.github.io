@@ -90,4 +90,23 @@ Then I took the Net Spend for each club during each season from the transfer tab
 
 ```
 
+Then I took the average position over the last ten years and added it to the transfer table, so you can see each club's average position over the last ten years. This gives an overall idea of how a team performed in the last decade. 
 
+I then took got data for the last five years, so I extracted the average position and total net spend over the last five years. This is an extremely important delineation in time because in 2016 the premier league signed a new television deal which saw revenue for the league and its clubs' skyrocket. So measuring the last five years will give a more accurate reading of how clubs are spending their money in the modern-day. 
+
+```markdown
+
+Club	2020-21	2019-20	2018-19	2017-18	...	2012-13	Total	Total Last 5	Avg. Pos. Last 10	Avg. Pos. Last 5
+0	Arsenal	-66.85	-107.15	-71.05	9.15	...	9.85	-617.04	-338.59	5.000000	6.40
+1	Newcastle United	-38.73	-37.26	-8.70	-25.28	...	-17.17	-323.36	-73.34	13.375000	12.00
+2	Manchester United	-64.30	-153.62	-52.15	-152.90	...	-66.80	-1016.13	-560.72	4.000000	3.80
+3	Crystal Palace	-2.40	47.78	-11.50	-45.95	...	14.67	-218.77	-63.07	12.625000	12.75
+4	West Ham United	-9.29	-64.32	-87.14	12.22	...	-18.85	-368.54	-191.03	10.888889	11.20
+...	...	...	...	...	...	...	...	...	...	...	...
+15	Aston Villa	-98.58	-156.50	-2.95	15.03	...	-24.63	-335.88	-282.70	15.833333	14.00
+16	Chelsea	-189.80	112.27	-125.55	-65.90	...	-84.25	-431.50	-292.88	3.777778	3.40
+17	Brighton & Hove Albion	-7.90	-59.90	-73.50	-66.10	...	-0.67	-212.88	-216.15	15.750000	NaN
+18	Everton	-68.95	-33.20	-71.15	-76.82	...	-2.90	-333.58	-275.32	8.666667	9.00
+19	Southampton	-11.00	-34.20	-36.15	37.10	...	-41.50	-67.30	-28.10	11.333333	13.40
+
+```
