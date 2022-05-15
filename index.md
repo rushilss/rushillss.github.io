@@ -34,7 +34,7 @@ Season	Pos	Club	Pld	W	D	L	GF	GA	GD	Pts	Qualification or relegation
 220 rows × 12 columns
 ```
 
-The other data we want to analyze and manipulate is the transfer data for all the clubs in the premier league. I downloaded data from transfermarkt which is a German-based website that has all the information available to the public in their database about soccer transfers. The data I downloaded was the net spend of each club in the past ten years. Net spend is the difference of the money a team made by selling players and the money a team spent by buying players. A positive net spend means a team made profit by spending less than they sold and a negative net spend means a team spent more than they sold. The code to get the data and the original table are shown below. 
+The other data we want to analyze and manipulate is the transfer data for all the clubs in the premier league. I downloaded data from transfermarkt.com which is a German-based website that has all the information available to the public in their database about soccer transfers. The data I downloaded was the net spending of each club in the past ten years. Net spend is the difference between the money a team made by selling players and the money a team spent by buying players. A positive net spend means a team made a profit by spending less than they sold and a negative net spend means a team spent more than they sold. The code to get the data and the original table are shown below. 
 
 ```markdown
 
@@ -67,6 +67,27 @@ Club	2021-22	2020-21	2019-20	2018-19	2017-18	2016-17	2015-16	2014-15	2013-14	201
 
 ```
 
+## Cleaning and Manipuating the Data
 
+Here I wanted to merge the two tables and display them, but there are some logistical things that must be taken care of first. I had to delete the 2021-2022 season as it is not finished yet and the transfer data on it was not fully up to date. Then I had to delete the club Brentford from the transfer table as the 2021-2022 season was the first season they were in the premier league, so there is no data for their results in the premier league for the last 10 seasons. I then deleted information that I don’t believe is relevant to the analysis I will be doing. I deleted games played (GP) as it doesn’t measure performance at all. I also deleted wins, losses, and draws because points encompass all 3 of these (W= 3 points, D= 1 point, L= 0 points). I also deleted the qualification column as it is just a description and has no numerical values.
+
+Then I took the Net Spend for each club during each season from the transfer table and added it to the standings table which will allow me to provide a comprehensive performance review for each club during each season. The code for all of this and the resulting table is below.
+
+markdown```
+
+	Season	Pos	Club	GF	GA	GD	Pts	Net_Spend
+40	2012-13	1	Manchester United	86	43	43	89	-66.80
+41	2012-13	2	Manchester City	66	34	32	78	-17.65
+42	2012-13	3	Chelsea	75	39	36	75	-0.67
+43	2012-13	4	Arsenal	72	37	35	73	9.85
+44	2012-13	5	Tottenham Hotspur	66	46	20	72	-0.47
+...	...	...	...	...	...	...	...	...
+212	2020-21	13	Wolverhampton Wanderers	36	52	-16	45	1.20
+213	2020-21	14	Crystal Palace	41	66	-25	44	-2.40
+214	2020-21	15	Southampton	47	68	-21	43	-11.00
+215	2020-21	16	Brighton & Hove Albion	40	46	-6	41	-68.95
+216	2020-21	17	Burnley	33	55	-22	39	-98.58
+
+```
 
 
