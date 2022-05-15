@@ -15,7 +15,6 @@ import pandas
 import numpy
 
 epl_standings = pandas.read_csv("notebooks/Final/EPL_Standings.csv")
-transfer_table = pandas.read_csv("notebooks/Final/Premier_league_transfer.csv")
 
 epl_standings
 
@@ -35,12 +34,39 @@ Season	Pos	Club	Pld	W	D	L	GF	GA	GD	Pts	Qualification or relegation
 220 rows × 12 columns
 ```
 
-For more details see [Basic writing and formatting syntax](https://docs.github.com/en/github/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax).
+The other data we want to analyze and manipulate is the transfer data for all the clubs in the premier league. I downloaded data from transfermarkt which is a German-based website that has all the information available to the public in their database about soccer transfers. The data I downloaded was the net spend of each club in the past ten years. Net spend is the difference of the money a team made by selling players and the money a team spent by buying players. A positive net spend means a team made profit by spending less than they sold and a negative net spend means a team spent more than they sold. The code to get the data and the original table are shown below. 
 
-### Jekyll Themes
+```markdown
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/rushilss/rushillss.github.io/settings/pages). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+transfer_table = pandas.read_csv("notebooks/Final/Premier_league_transfer.csv")
 
-### Support or Contact
+transfer_table
 
-Having trouble with Pages? Check out our [documentation](https://docs.github.com/categories/github-pages-basics/) or [contact support](https://support.github.com/contact) and we’ll help you sort it out.
+
+Club	2021-22	2020-21	2019-20	2018-19	2017-18	2016-17	2015-16	2014-15	2013-14	2012-13	Total
+0	Arsenal	-136.02	-66.85	-107.15	-71.05	9.15	-102.69	-24.00	-91.18	-37.10	9.85	-617.04
+1	Newcastle United	-131.50	-38.73	-37.26	-8.70	-25.28	36.63	-102.28	-21.15	22.07	-17.17	-323.36
+2	Manchester United	-109.30	-64.30	-153.62	-52.15	-152.90	-137.75	-55.33	-148.65	-75.33	-66.80	-1016.13
+3	Crystal Palace	-85.62	-2.40	47.78	-11.50	-45.95	-51.00	-23.40	-28.35	-33.00	14.67	-218.77
+4	West Ham United	-70.27	-9.29	-64.32	-87.14	12.22	-42.50	-34.19	-30.75	-23.47	-18.85	-368.54
+5	Leicester City	-63.60	-5.63	-15.80	-18.80	-33.75	-26.05	-40.45	-22.86	0.65	-1.72	-228.00
+6	Tottenham Hotspur	-61.78	-97.20	-84.00	5.35	-19.70	-31.20	16.25	-4.33	15.85	-0.47	-261.23
+7	Leeds United	-58.90	-106.80	30.40	-4.10	-10.93	-1.00	-1.46	3.72	-2.27	2.38	-148.96
+8	Liverpool	-57.50	-65.45	34.10	-140.88	10.62	5.48	-35.95	-52.16	-25.60	-60.15	-387.49
+9	Manchester City	-40.70	-95.65	-88.52	-20.99	-226.15	-179.65	-141.03	-72.50	-104.20	-17.65	-987.04
+10	Brentford	-35.70	54.70	6.27	28.40	3.85	9.25	15.12	-1.80	-0.31	NaN	79.78
+11	Watford	-30.65	67.50	-23.10	21.74	-54.66	-12.35	-73.05	-8.45	2.08	3.99	-106.96
+12	Norwich City	-25.65	30.72	-6.62	32.15	18.52	10.25	-29.01	-0.97	-25.22	-10.70	-6.53
+13	Wolverhampton Wanderers	-5.80	-8.60	-92.60	-87.20	-20.54	-33.11	5.73	-2.02	4.26	14.84	-225.05
+14	Burnley	-5.40	1.20	-10.30	-25.00	14.26	-44.40	-5.01	-12.62	4.11	6.35	-76.81
+15	Aston Villa	-2.82	-98.58	-156.50	-2.95	15.03	-39.70	-1.85	-12.14	-11.74	-24.63	-335.88
+16	Chelsea	1.95	-189.80	112.27	-125.55	-65.90	-23.90	-9.01	5.11	-52.42	-84.25	-431.50
+17	Brighton & Hove Albion	4.80	-7.90	-59.90	-73.50	-66.10	-8.75	-13.47	9.42	3.20	-0.67	-212.88
+18	Everton	6.50	-68.95	-33.20	-71.15	-76.82	-25.20	-37.90	-38.26	14.30	-2.90	-333.58
+19	Southampton	17.27	-11.00	-34.20	-36.15	37.10	16.15	-7.40	27.83	-35.40	-41.50	-67.30
+
+```
+
+
+
+
