@@ -49,13 +49,19 @@ epl_standings
 
 ```
 
-The other data we want to analyze and manipulate is the transfer data for all the clubs in the premier league. I downloaded data from transfermarkt.com which is a German-based website that has all the information available to the public in their database about soccer transfers. The data I downloaded was the net spending of each club in the past ten years. Net spend is the difference between the money a team made by selling players and the money a team spent by buying players. A positive net spend means a team made a profit by spending less than they sold and a negative net spend means a team spent more than they sold. The code to get the data and the original table are shown below. 
+The other data we want to analyze and manipulate is the transfer data for all the clubs in the premier league. I downloaded data from transfermarkt.com which is a German-based website that has all the information available to the public in their database about soccer transfers. The data I downloaded was the net spending of each club in the past ten years. Net spend is the difference between the money a team made by selling players and the money a team spent by buying players. A positive net spend means a team made a profit by spending less than they sold and a negative net spend means a team spent more than they sold. Here is the code to get the data. 
 
 ```markdown
 
 transfer_table = pandas.read_csv("notebooks/Final/Premier_league_transfer.csv")
 
 transfer_table
+
+```
+
+Here is the table that results from the above code.
+
+```markdown
 
                       Club  2021-22  2020-21  2019-20  2018-19  2017-18  \
 0                  Arsenal  -136.02   -66.85  -107.15   -71.05     9.15   
@@ -91,7 +97,7 @@ transfer_table
 
 Here I wanted to merge the two tables and display them, but there are some logistical things that must be taken care of first. I had to delete the 2021-2022 season as it is not finished yet and the transfer data on it was not fully up to date. Then I had to delete the club Brentford from the transfer table as the 2021-2022 season was the first season they were in the premier league, so there is no data for their results in the premier league for the last 10 seasons. I then deleted information that I don’t believe is relevant to the analysis I will be doing. I deleted games played (GP) as it doesn’t measure performance at all. I also deleted wins, losses, and draws because points encompass all 3 of these (W= 3 points, D= 1 point, L= 0 points). I also deleted the qualification column as it is just a description and has no numerical values.
 
-Then I took the Net Spend for each club during each season from the transfer table and added it to the standings table which will allow me to provide a comprehensive performance review for each club during each season. The code for all of this and the resulting table is below.
+Then I took the Net Spend for each club during each season from the transfer table and added it to the standings table which will allow me to provide a comprehensive performance review for each club during each season. The code for all of this is below.
 
 ```markdown
 ntransfer_table = transfer_table.drop(columns="2021-22") #Delete 21-22 season
@@ -140,6 +146,11 @@ result = pandas.concat([nepl_standings, df], axis=1, join='inner')
 nr = result.drop(columns= 'Club_num')
 print(nr)
 
+```
+Here is the table that results from the code below.
+
+```markdown
+
       Season  Pos                     Club  GF  GA  GD  Pts  Net_Spend
 40   2012-13    1        Manchester United  86  43  43   89     -66.80
 41   2012-13    2          Manchester City  66  34  32   78     -17.65
@@ -157,9 +168,9 @@ print(nr)
 
 ```
 
-Then I took the average position over the last ten years and added it to the transfer table, so you can see each club's average position over the last ten years. This gives an overall idea of how a team performed in the last decade. 
+Then I took the average position over the last ten years and added it to the transfer table, so you can see each club's average position over the last ten years. I also got the average pts, goals for, and goals against in the last 10 years. This gives a very sound overall idea of how a team performed in the last decade and will allow me to do in depth analysis later. 
 
-I then took got data for the last five years, so I extracted the average position and total net spend over the last five years. This is an extremely important delineation in time because in 2016 the premier league signed a new television deal which saw revenue for the league and its clubs' skyrocket. So measuring the last five years will give a more accurate reading of how clubs are spending their money in the modern-day. 
+I then took got data for the last five years, so I extracted the average position, points, goals for, goals against, and total net spend over the last five years. This is an extremely important delineation in time because in 2016 the premier league signed a new television deal which saw revenue for the league and its clubs' skyrocket. So measuring the last five years will give a more accurate reading of how clubs are spending their money in the modern-day. 
 
 ```markdown
 N = 4
@@ -186,6 +197,12 @@ for i, val in ntransfer_table.iterrows():
         
 
 print(ntr)
+
+```
+
+Here is the table that results in the code above.
+
+```markdown
 
                       Club  2020-21  2019-20  2018-19  2017-18  2016-17  \
 0                  Arsenal   -66.85  -107.15   -71.05     9.15  -102.69   
