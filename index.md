@@ -1,4 +1,4 @@
-## Are Premier League Clubs Spending their Money Wisely? An Analysis
+
 
 Transfers are the main component of how professional soccer clubs build and improve their teams. A transfer is when a player is under contract for one club but moves to another. The leading way clubs transfer these players is by exchanging the player for a large sum of money that is agreed upon between the two clubs. This money comes from the club's investors, sponsors, and revenue. Because of the importance of money in soccer, fans believe that the more money spent the better the results for their team will be. Is this true? Who are the teams that are spending their money the best? Who are the teams that are spending their money the worst? What aspect of the game does money affect more? Is the difference in transfer spending ruining the competitiveness of the league? These are the questions I want to explore in my analysis.
 
