@@ -344,6 +344,32 @@ And here is the table that results in the code above and is clear representation
 
 ```
 
+### Data Visualization and Analysis
+
+The first question I wanted to explore was does spending more money make premier league clubs perform better? To visualize this component I created four boxplots that can represent performance and compare it to the money being spent. The first two plots show the Average Position of Premier Clubs compared to the Money Spent by each of these clubs in the last 5 and 10 years. The second group of two plots show the Average Points of Premier Clubs accrued compared to the Money Spent by each of these clubs in the last 5 and 10 years. In both this scenarios performance is compared to money spent. The code and boxplots are shown below.
+
+```markdown
+
+import matplotlib.pyplot as plt
+import matplotlib
+import seaborn
+matplotlib.style.use('ggplot')
+
+ax = ntr.plot('Total abs 10', 'Avg. Pos. Last 10', kind='scatter', c='r', label='Premier League Clubs')
+plt.title('Average Position vs Money Spent Last 10 Years')
+plt.xlabel('Total Money Spent Last 10 Years (In Millions)')
+plt.ylabel('Average Position Last 10 Years')
+plt.show()
+bx = ntr.plot('Total abs 5', 'Avg. Pos. Last 5', kind='scatter', c='r', label='Premier League Clubs')
+plt.title('Average Position vs Money Spent Last 5 Years')
+plt.xlabel('Total Money Spent Last 5 Years (In Millions)')
+plt.ylabel('Average Position Last 5 Years')
+plt.show()
+
+```
+
+
+
 
 
 
