@@ -369,7 +369,7 @@ plt.show()
 ```
 ```markdown
 
-![Book logo](/rushilss/rushillss.github.io/assets/Graph 1.png)
+
 
 ```
 
