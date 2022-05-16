@@ -151,7 +151,7 @@ nr = result.drop(columns= 'Club_num')
 print(nr)
 
 ```
-Here is the table that results from the code below.
+Here is the table that results from the code above.
 
 ```markdown
 
