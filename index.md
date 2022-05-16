@@ -1,4 +1,4 @@
-## Premier League Transfer Analysis
+## Are Premier League Clubs Spending their Money Wisely? An Analysis
 
 Transfers are the main component of professional soccer clubs building and improving their teams. A transfer is when a player is under contract for one club but moves to another. The leading way clubs transfer these players is by exchanging the player for a large sum of money that is agreed upon between the two clubs. This money comes from the club's investors, sponsors, and revenue. Because of the importance of money in soccer, fans believe that the more money spent the better the results for their team will be. Is this true? Who are the teams that are spending their money the best? Who are the teams that are spending their money the worst? Is the difference in transfer spending ruining the competitiveness of the league? These are the questions I will be answering in my analysis.
 
@@ -263,5 +263,91 @@ Here is the table that results in the code above.
 [19 rows x 20 columns]
 
 ```
+
+Next, I wanted to combine the data into different statistics that can properly answer the questions I want to discover. I made four new measures and calculated them in a new table for each club in the premier league. I did this for the last 10 years and the last 5 years to get a diverse measurement. Below I will briefly explain how I got each statistic and their significance.
+
+PPMS stands for position per money spent and it takes the average position per season in the given time period and divides it by the total money spent during that same time period. A greater value means that the club has performed well compared to the money they have spent.
+
+GPMS stands for goals per money spent and it takes the average goals scored per season in the given time period and divides it by the total money spent during that same time period. A greater value means that the club’s offense has performed well compared to the money they have spent.
+
+GAPMS stands for goals per money spent and it takes the average goals allowed scored per season in the given time period and divides it by the total money spent during that same time period. A greater value means that the club’s defense has performed well compared to the money they have spent.
+
+PtPMS stands for points per money spent and it takes the average points per season in the given time period and divides it by the total money spent during that same time period. A greater value means that the club has performed well compared to the money they have spent. This is measures something different from the PPMS because some years teams will score more points however their position will be the same or lower because their position is dependent on how other teams perform in that given year.
+
+The 5 and the 10 in each of the statistics represent the years that are being measured, the 5 is the last 5 years and the 10 is the last 10 years. 
+
+Now here is the code I used to gather this information and organize it.
+
+```markdown
+
+analysis= pandas.DataFrame()
+analysis['Club']= ntr['Club']
+analysis['PPMS5']= ntr['Avg. Pos. Last 5']/ntr['Total Last 5']
+analysis['PPMS10']= ntr['Avg. Pos. Last 10']/ntr['Total']
+analysis['GPMS5'] =ntr['Avg. GF Last 5']/ntr['Total Last 5']
+analysis['GPMS10'] =ntr['Avg. GF Last 10']/ntr['Total']
+analysis['GAPMS5'] =ntr['Avg. GA Last 5']/ntr['Total Last 5']
+analysis['GAPMS10'] =ntr['Avg. GA Last 10']/ntr['Total']
+analysis['PtPMS5'] =ntr['Avg. Pts. Last 5']/ntr['Total Last 5']
+analysis['PtPMS10'] =ntr['Avg. Pts. Last 10']/ntr['Total']
+pandas.set_option("display.max_rows", None, "display.max_columns", None)
+
+print(analysis)
+
+```
+
+And here is the table that results in the code above and is clear representation of the data that I will use to make my analysis. This table shows the all of the clubs and the data corresponding with each one.
+
+```markdown
+
+                       Club      PPMS5    PPMS10      GPMS5    GPMS10  \
+0                   Arsenal  -0.018902 -0.008103  -0.197879 -0.110023   
+1          Newcastle United  -0.163621 -0.041363  -0.562449 -0.130273   
+2         Manchester United  -0.006777 -0.003937  -0.116279 -0.064187   
+3            Crystal Palace  -0.206120 -0.057709  -0.691295 -0.192554   
+4           West Ham United  -0.058630 -0.029546  -0.270115 -0.136273   
+5            Leicester City  -0.079976 -0.034461  -0.579826 -0.253133   
+6         Tottenham Hotspur  -0.019405 -0.017439  -0.314002 -0.256904   
+7              Leeds United  -0.097371 -0.060419  -0.670778 -0.416219   
+8                 Liverpool  -0.017934 -0.010610  -0.517517 -0.198141   
+9           Manchester City  -0.002619 -0.001914  -0.152547 -0.088705   
+11                  Watford -17.528736 -0.138369 -49.425287 -0.396410   
+12             Norwich City   0.235239 -2.603369   0.305810 -5.130168   
+13  Wolverhampton Wanderers  -0.037182 -0.039991  -0.184535 -0.198474   
+14                  Burnley  -0.202366 -0.182268  -0.610212 -0.486048   
+15              Aston Villa  -0.049522 -0.047140  -0.169791 -0.119090   
+16                  Chelsea  -0.011609 -0.008755  -0.230128 -0.158362   
+17   Brighton & Hove Albion  -0.072866 -0.073985  -0.171177 -0.173807   
+18                  Everton  -0.032689 -0.025981  -0.182333 -0.157883   
+19              Southampton  -0.476868 -0.168400  -1.572954 -0.721479   
+
+       GAPMS5    GAPMS10     PtPMS5   PtPMS10  
+0   -0.137630  -0.068967  -0.191973 -0.112184  
+1   -0.732888  -0.181686  -0.606763 -0.132979  
+2   -0.068127  -0.038162  -0.126980 -0.070529  
+3   -0.910100  -0.249691  -0.700809 -0.203410  
+4   -0.309899  -0.150142  -0.254410 -0.132053  
+5   -0.523843  -0.221178  -0.541837 -0.246241  
+6   -0.170232  -0.160778  -0.313120 -0.267963  
+7   -0.584226  -0.362513  -0.638321 -0.396079  
+8   -0.226734  -0.105522  -0.532889 -0.195847  
+9   -0.051067  -0.034446  -0.145018 -0.084653  
+11 -73.275862  -0.570307 -47.413793 -0.392670  
+12   0.882145 -10.030628   0.247001 -5.053599  
+13  -0.190043  -0.204399  -0.221717 -0.238466  
+14  -0.831258  -0.694354  -0.706725 -0.564163  
+15  -0.199859  -0.186575  -0.159179 -0.111151  
+16  -0.136575  -0.090382  -0.251297 -0.170465  
+17  -0.247513  -0.251315  -0.182743 -0.185551  
+18  -0.183060  -0.145226  -0.197588 -0.166877  
+19  -2.113879  -0.787519  -1.537367 -0.719828  
+
+```
+
+
+
+
+
+
 
 
