@@ -87,13 +87,58 @@ transfer_table
 
 ```
 
-## Cleaning and Manipuating the Data
+## Cleaning and Manipulating the Data
 
 Here I wanted to merge the two tables and display them, but there are some logistical things that must be taken care of first. I had to delete the 2021-2022 season as it is not finished yet and the transfer data on it was not fully up to date. Then I had to delete the club Brentford from the transfer table as the 2021-2022 season was the first season they were in the premier league, so there is no data for their results in the premier league for the last 10 seasons. I then deleted information that I don’t believe is relevant to the analysis I will be doing. I deleted games played (GP) as it doesn’t measure performance at all. I also deleted wins, losses, and draws because points encompass all 3 of these (W= 3 points, D= 1 point, L= 0 points). I also deleted the qualification column as it is just a description and has no numerical values.
 
 Then I took the Net Spend for each club during each season from the transfer table and added it to the standings table which will allow me to provide a comprehensive performance review for each club during each season. The code for all of this and the resulting table is below.
 
 ```markdown
+ntransfer_table = transfer_table.drop(columns="2021-22") #Delete 21-22 season
+ntransfer_table= ntransfer_table.drop(10) #Delete Brentford
+clublist= ntransfer_table['Club'].tolist()
+
+nepl_standings = epl_standings.drop(range(0,40)) ##Delete the 2010-11 and 2011-12 seasons
+
+nepl_standings = nepl_standings[nepl_standings['Club'].isin(clublist)] #Take out clubs that aren't in PL
+
+nepl_standings = nepl_standings.drop(columns="W") #Delete Information not needed for analysis
+nepl_standings = nepl_standings.drop(columns="D")
+nepl_standings = nepl_standings.drop(columns="L")
+nepl_standings = nepl_standings.drop(columns="Qualification or relegation")
+nepl_standings = nepl_standings.drop(columns="Pld")
+
+nepl_standings.loc[nepl_standings['Club'] == "Arsenal", 'Club_num'] = 0##Create this row to check seasons will delete later
+nepl_standings.loc[nepl_standings['Club'] == "Newcastle United", 'Club_num'] = 1
+nepl_standings.loc[nepl_standings['Club'] == "Manchester United", 'Club_num'] = 2
+nepl_standings.loc[nepl_standings['Club'] == "Crystal Palace", 'Club_num'] = 3
+nepl_standings.loc[nepl_standings['Club'] == "West Ham United", 'Club_num'] = 4
+nepl_standings.loc[nepl_standings['Club'] == "Leicester City", 'Club_num'] = 5
+nepl_standings.loc[nepl_standings['Club'] == "Tottenham Hotspur", 'Club_num'] = 6
+nepl_standings.loc[nepl_standings['Club'] == "Leeds United", 'Club_num'] = 7
+nepl_standings.loc[nepl_standings['Club'] == "Liverpool", 'Club_num'] = 8
+nepl_standings.loc[nepl_standings['Club'] == "Manchester City", 'Club_num'] = 9
+nepl_standings.loc[nepl_standings['Club'] == "Watford", 'Club_num'] = 11
+nepl_standings.loc[nepl_standings['Club'] == "Norwich City", 'Club_num'] = 12
+nepl_standings.loc[nepl_standings['Club'] == "Wolverhampton Wanderers", 'Club_num'] = 13
+nepl_standings.loc[nepl_standings['Club'] == "Burnley", 'Club_num'] = 14
+nepl_standings.loc[nepl_standings['Club'] == "Aston Villa", 'Club_num'] = 15
+nepl_standings.loc[nepl_standings['Club'] == "Chelsea", 'Club_num'] = 16
+nepl_standings.loc[nepl_standings['Club'] == "Brighton & Hove Albion", 'Club_num'] = 17
+nepl_standings.loc[nepl_standings['Club'] == "Everton", 'Club_num'] = 18
+nepl_standings.loc[nepl_standings['Club'] == "Southampton", 'Club_num'] = 18
+
+nepl_standings['Club_num'] = nepl_standings['Club_num'].fillna(0).astype(int)
+df= pandas.DataFrame()
+
+for i, val in nepl_standings.iterrows():  ##adding the netspend to the dataframe
+    seas= nepl_standings.at[i,'Season']
+    cid = (nepl_standings.at[i,'Club_num'])
+    df.at[i,'Net_Spend'] = ntransfer_table.iloc[cid][seas]
+
+result = pandas.concat([nepl_standings, df], axis=1, join='inner')
+nr = result.drop(columns= 'Club_num')
+print(nr)
 
       Season  Pos                     Club  GF  GA  GD  Pts  Net_Spend
 40   2012-13    1        Manchester United  86  43  43   89     -66.80
@@ -117,32 +162,85 @@ Then I took the average position over the last ten years and added it to the tra
 I then took got data for the last five years, so I extracted the average position and total net spend over the last five years. This is an extremely important delineation in time because in 2016 the premier league signed a new television deal which saw revenue for the league and its clubs' skyrocket. So measuring the last five years will give a more accurate reading of how clubs are spending their money in the modern-day. 
 
 ```markdown
-                      Club  2020-21  2019-20  2018-19  2017-18  ...  2012-13  \
-0                  Arsenal   -66.85  -107.15   -71.05     9.15  ...     9.85   
-1         Newcastle United   -38.73   -37.26    -8.70   -25.28  ...   -17.17   
-2        Manchester United   -64.30  -153.62   -52.15  -152.90  ...   -66.80   
-3           Crystal Palace    -2.40    47.78   -11.50   -45.95  ...    14.67   
-4          West Ham United    -9.29   -64.32   -87.14    12.22  ...   -18.85   
-..                     ...      ...      ...      ...      ...  ...      ...   
-15             Aston Villa   -98.58  -156.50    -2.95    15.03  ...   -24.63   
-16                 Chelsea  -189.80   112.27  -125.55   -65.90  ...   -84.25   
-17  Brighton & Hove Albion    -7.90   -59.90   -73.50   -66.10  ...    -0.67   
-18                 Everton   -68.95   -33.20   -71.15   -76.82  ...    -2.90   
-19             Southampton   -11.00   -34.20   -36.15    37.10  ...   -41.50   
+N = 4
+# Drop first N columns of dataframe
+ntr= ntransfer_table
+for i, val in ntransfer_table.iterrows():
+    ntr.at[i,'Total Last 5']= (ntransfer_table.at[i, '2016-17'] + ntransfer_table.at[i, '2017-18'] + ntransfer_table.at[i, '2018-19'] + ntransfer_table.at[i, '2019-20'] + ntransfer_table.at[i, '2020-21'])
+    
+for i, val in ntransfer_table.iterrows():
+    club= ntransfer_table.at[i, 'Club']
+    temp= nr[nr['Club']== club]
+    ntr.at[i, 'Avg. Pos. Last 10'] = temp['Pos'].mean() ##Average position last 10 years
+    ntr.at[i, 'Avg. Pts. Last 10'] = temp['Pts'].mean()
+    ntr.at[i, 'Avg. GF Last 10'] = temp['GF'].mean()
+    ntr.at[i, 'Avg. GA Last 10'] = temp['GA'].mean()
+    temp = temp[temp.Season != '2012-13']
+    temp = temp[temp.Season != '2013-14']
+    temp = temp[temp.Season != '2014-15']
+    temp = temp[temp.Season != '2015-16']    
+    ntr.at[i, 'Avg. Pos. Last 5'] = temp['Pos'].mean() ##Average position last 5 years
+    ntr.at[i, 'Avg. Pts. Last 5'] = temp['Pts'].mean()
+    ntr.at[i, 'Avg. GF Last 5'] = temp['GF'].mean()
+    ntr.at[i, 'Avg. GA Last 5'] = temp['GA'].mean()
+        
 
-      Total  Total Last 5  Avg. Pos. Last 10  Avg. Pos. Last 5  
-0   -617.04       -338.59           5.000000              6.40  
-1   -323.36        -73.34          13.375000             12.00  
-2  -1016.13       -560.72           4.000000              3.80  
-3   -218.77        -63.07          12.625000             13.00  
-4   -368.54       -191.03          10.888889             11.20  
-..      ...           ...                ...               ...  
-15  -335.88       -282.70          15.833333             14.00  
-16  -431.50       -292.88           3.777778              3.40  
-17  -212.88       -216.15          15.750000             15.75  
-18  -333.58       -275.32           8.666667              9.00  
-19   -67.30        -28.10          11.333333             13.40  
+print(ntr)
 
-[19 rows x 14 columns]
+                      Club  2020-21  2019-20  2018-19  2017-18  2016-17  \
+0                  Arsenal   -66.85  -107.15   -71.05     9.15  -102.69   
+1         Newcastle United   -38.73   -37.26    -8.70   -25.28    36.63   
+2        Manchester United   -64.30  -153.62   -52.15  -152.90  -137.75   
+3           Crystal Palace    -2.40    47.78   -11.50   -45.95   -51.00   
+4          West Ham United    -9.29   -64.32   -87.14    12.22   -42.50   
+..                     ...      ...      ...      ...      ...      ...   
+15             Aston Villa   -98.58  -156.50    -2.95    15.03   -39.70   
+16                 Chelsea  -189.80   112.27  -125.55   -65.90   -23.90   
+17  Brighton & Hove Albion    -7.90   -59.90   -73.50   -66.10    -8.75   
+18                 Everton   -68.95   -33.20   -71.15   -76.82   -25.20   
+19             Southampton   -11.00   -34.20   -36.15    37.10    16.15   
+
+    2015-16  2014-15  2013-14  2012-13    Total  Total Last 5  \
+0    -24.00   -91.18   -37.10     9.85  -617.04       -338.59   
+1   -102.28   -21.15    22.07   -17.17  -323.36        -73.34   
+2    -55.33  -148.65   -75.33   -66.80 -1016.13       -560.72   
+3    -23.40   -28.35   -33.00    14.67  -218.77        -63.07   
+4    -34.19   -30.75   -23.47   -18.85  -368.54       -191.03   
+..      ...      ...      ...      ...      ...           ...   
+15    -1.85   -12.14   -11.74   -24.63  -335.88       -282.70   
+16    -9.01     5.11   -52.42   -84.25  -431.50       -292.88   
+17   -13.47     9.42     3.20    -0.67  -212.88       -216.15   
+18   -37.90   -38.26    14.30    -2.90  -333.58       -275.32   
+19    -7.40    27.83   -35.40   -41.50   -67.30        -28.10   
+
+    Avg. Pos. Last 10  Avg. Pts. Last 10  Avg. GF Last 10  Avg. GA Last 10  \
+0            5.000000          69.222222        67.888889        42.555556   
+1           13.375000          43.000000        42.125000        58.750000   
+2            4.000000          71.666667        65.222222        38.777778   
+3           12.625000          44.500000        42.125000        54.625000   
+4           10.888889          48.666667        50.222222        55.333333   
+..                ...                ...              ...              ...   
+15          15.833333          37.333333        40.000000        62.666667   
+16           3.777778          73.555556        68.333333        39.000000   
+17          15.750000          39.500000        37.000000        53.500000   
+18           8.666667          55.666667        52.666667        48.444444   
+19          11.333333          48.444444        48.555556        53.000000   
+
+    Avg. Pos. Last 5  Avg. Pts. Last 5  Avg. GF Last 5  Avg. GA Last 5  
+0               6.40              65.0           67.00           46.60  
+1              12.00              44.5           41.25           53.75  
+2               3.80              71.2           65.20           38.20  
+3              13.00              44.2           43.60           57.40  
+4              11.20              48.6           51.60           59.20  
+..               ...               ...             ...             ...  
+15             14.00              45.0           48.00           56.50  
+16              3.40              73.6           67.40           40.00  
+17             15.75              39.5           37.00           53.50  
+18              9.00              54.4           50.20           50.40  
+19             13.40              43.2           44.20           59.40  
+
+[19 rows x 20 columns]
 
 ```
+
+
