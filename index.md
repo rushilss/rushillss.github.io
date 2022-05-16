@@ -367,9 +367,11 @@ plt.ylabel('Average Position Last 5 Years')
 plt.show()
 
 ```
+
+```markdown
 ![Image of graphs]
 https://raw.githubusercontent.com/rushilss/rushillss.github.io/gh-pages/Graph%201.png
-
+```
 
 
 
