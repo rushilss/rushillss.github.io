@@ -1,6 +1,6 @@
 ## Are Premier League Clubs Spending their Money Wisely? An Analysis
 
-Transfers are the main component of professional soccer clubs building and improving their teams. A transfer is when a player is under contract for one club but moves to another. The leading way clubs transfer these players is by exchanging the player for a large sum of money that is agreed upon between the two clubs. This money comes from the club's investors, sponsors, and revenue. Because of the importance of money in soccer, fans believe that the more money spent the better the results for their team will be. Is this true? Who are the teams that are spending their money the best? Who are the teams that are spending their money the worst? Is the difference in transfer spending ruining the competitiveness of the league? These are the questions I want to explore in my analysis.
+Transfers are the main component of how professional soccer clubs build and improve their teams. A transfer is when a player is under contract for one club but moves to another. The leading way clubs transfer these players is by exchanging the player for a large sum of money that is agreed upon between the two clubs. This money comes from the club's investors, sponsors, and revenue. Because of the importance of money in soccer, fans believe that the more money spent the better the results for their team will be. Is this true? Who are the teams that are spending their money the best? Who are the teams that are spending their money the worst? What aspect of the game does money affect more? Is the difference in transfer spending ruining the competitiveness of the league? These are the questions I want to explore in my analysis.
 
 ### Data
 
@@ -448,7 +448,7 @@ transfer_table
 
 Here I wanted to merge the two tables and display them, but there are some logistical things that must be taken care of first. I had to delete the 2021-2022 season as it is not finished yet and the transfer data on it was not fully up to date. Then I had to delete the club Brentford from the transfer table as the 2021-2022 season was the first season they were in the premier league, so there is no data for their results in the premier league for the last 10 seasons.  I then deleted information that I don’t believe is relevant to the analysis I will be doing. I deleted games played (GP) as it doesn’t measure performance at all. I also deleted wins, losses, and draws because points encompass all 3 of these (W= 3 points, D= 1 point, L= 0 points). I also deleted the qualification column as it is just a description and has no numerical values.
 
-Then I took the Net Spend for each club during each season from the transfer table and added it to the standings table which will allow me to provide a comprehensive performance review for each club during each season. The code for all of this is below.
+Then I took the Net Spending for each club during each season from the transfer table and added it to the standings table which will allow me to provide a comprehensive performance review for each club during each season. The code for all of this is below.
 
 
 ```python
@@ -1030,7 +1030,7 @@ GPMS stands for goals per money spent and it takes the average goals scored per 
 
 GAPMS stands for goals per money spent and it takes the average goals allowed scored per season in the given time period and divides it by the total money spent during that same time period. Then I took the absolute value. A greater value means that the club’s defense has performed well compared to the money they have spent.
 
-PtPMS stands for points per money spent and it takes the average points per season in the given time period and divides it by the total money spent during that same time period. Then I took the absolute value. A greater value means that the club has performed well compared to the money they have spent. This is measures something different from the PPMS because some years teams will score more points however their position will be the same or lower because their position is dependent on how other teams perform in that given year.
+PtPMS stands for points per money spent and it takes the average points per season in the given time period and divides it by the total money spent during that same time period. Then I took the absolute value. A greater value means that the club has performed well compared to the money they have spent. This measures something different from the PPMS because some years teams will score more points however their position will be the same or lower because their position is dependent on how other teams perform in that given year.
 
 The 5 and the 10 in each of the statistics represent the years that are being measured, the 5 is the last 5 years and the 10 is the last 10 years. 
 
@@ -1319,7 +1319,7 @@ analysis
 
 ### Data Visualization and Analysis
 
-The first question I wanted to explore was does spending more money make premier league clubs perform better? To visualize this component I created four boxplots that can represent performance and compare it to the money being spent. The first two plots show the Average Position of Premier Clubs compared to the Money Spent by each of these clubs in the last 5 and 10 years. The second group of two plots show the Average Points of Premier Clubs accrued compared to the Money Spent by each of these clubs in the last 5 and 10 years. In both this scenarios performance is compared to money spent. The code and boxplots are shown below.
+The first question I wanted to explore was does spending more money makes premier league clubs perform better? To visualize this component I created four boxplots that can represent performance and compare it to the money being spent. The first two plots show the Average Position of Premier Clubs compared to the Money Spent by each of these clubs in the last 5 and 10 years. The second group of two plots shows the Average Points of Premier Clubs accrued compared to the Money Spent by each of these clubs in the last 5 and 10 years. In both of these scenarios performance is compared to money spent. The code and boxplots are shown below.
 
 
 ```python
@@ -1352,7 +1352,7 @@ plt.show()
     
 
 
-The first two boxplots shows that the more money teams spent the lower their position is. The lower the position the stronger the performance as the position is a ranking compared to other clubs (meaning 1 is first place and 2 is second place). This plot shows that the more money premier league clubs spend the lower their position which means the better their performance is. This is true in the last 10 years and the last 5 years. 
+The first two boxplots show that the more money teams spent the lower their position is. The lower the position the stronger the performance as the position is a ranking compared to other clubs (meaning 1 is first place and 2 is second place). This plot shows that the more money premier league clubs spend the lower their position which means the better their performance is. This is true in the last 10 years and the last 5 years. 
 
 
 ```python
