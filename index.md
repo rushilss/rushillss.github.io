@@ -18,6 +18,10 @@ epl_standings = pandas.read_csv("notebooks/Final/EPL_Standings.csv")
 
 epl_standings
 
+```
+Here is the table from the resulted code above.
+
+```markdown
 
       Season  Pos                    Club  Pld   W   D   L  GF  GA  GD  Pts  \
 0    2010-11    1       Manchester United   38  23  11   4  78  37  41   80   
